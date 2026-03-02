@@ -1,0 +1,14 @@
+{
+  "type": "enum",
+  "title": { "en": "Swim Advice", "nl": "Zwemadvies" },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/capabilities/swim-advice.svg",
+  "values": [
+    { "id": "good", "title": { "en": "Good", "nl": "Goed" } },
+    { "id": "warning", "title": { "en": "Warning", "nl": "Waarschuwing" } },
+    { "id": "negative", "title": { "en": "Negative advice", "nl": "Negatief zwemadvies" } },
+    { "id": "prohibited", "title": { "en": "Prohibited", "nl": "Zwemverbod" } }
+  ]
+}

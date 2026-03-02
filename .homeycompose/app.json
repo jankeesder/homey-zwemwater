@@ -1,0 +1,31 @@
+{
+  "id": "nl.zwemwater",
+  "version": "1.0.1",
+  "compatibility": ">=12.1.2",
+  "sdk": 3,
+  "platforms": ["local"],
+  "name": {
+    "en": "Swimming Water",
+    "nl": "Zwemwater"
+  },
+  "description": {
+    "en": "Know before you go — live water temperature and swim safety",
+    "nl": "Altijd weten of je veilig en lekker kunt zwemmen"
+  },
+  "category": "climate",
+  "tags": {
+    "en": ["swimming", "water temperature", "swim advice", "water quality", "beach"],
+    "nl": ["zwemmen", "watertemperatuur", "zwemadvies", "waterkwaliteit", "strand"]
+  },
+  "permissions": ["homey:manager:geolocation"],
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  },
+  "author": {
+    "name": "Jan-kees de Rijke"
+  },
+  "source": "https://github.com/jankeesder/Homey/tree/main/nl.zwemwater",
+  "brandColor": "#0077B6"
+}

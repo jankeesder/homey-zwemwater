@@ -1,0 +1,7 @@
+{
+  "id": "refresh_data",
+  "title": { "en": "Refresh data", "nl": "Ververs data" },
+  "args": [
+    { "type": "device", "name": "device", "filter": "driver_id=swimming-location" }
+  ]
+}

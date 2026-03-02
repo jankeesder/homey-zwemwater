@@ -1,0 +1,10 @@
+{
+  "1.0.0": {
+    "en": "First release: water temperature and swim advice for 900+ official Dutch swimming locations via waterkaart.net",
+    "nl": "Eerste release: watertemperatuur en zwemadvies voor 900+ officiele Nederlandse zwemlocaties via waterkaart.net"
+  },
+  "1.0.1": {
+    "en": "Fixed README language to English for App Store compliance",
+    "nl": "README vertaald naar Engels voor App Store certificering"
+  }
+}

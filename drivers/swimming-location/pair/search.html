@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; padding: 16px; }
+    .search-box { display: flex; gap: 8px; margin-bottom: 16px; }
+    input { flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; }
+    button { padding: 8px 16px; background: #0077B6; color: white; border: none; border-radius: 6px; font-size: 14px; cursor: pointer; }
+    button:hover { background: #005f8f; }
+    button:disabled { background: #ccc; cursor: default; }
+    .spinner { border: 3px solid #f3f3f3; border-top: 3px solid #0077B6; border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 20px auto; display: none; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    .results { list-style: none; padding: 0; margin: 0; }
+    .results li { padding: 10px 12px; border-bottom: 1px solid #eee; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+    .results li:hover { background: #f0f8ff; }
+    .loc-name { font-weight: 600; font-size: 14px; }
+    .loc-info { font-size: 12px; color: #666; text-align: right; }
+    .loc-temp { font-weight: 600; color: #0077B6; }
+    .quality-good { color: #2ecc71; }
+    .quality-warn { color: #f39c12; }
+    .quality-bad { color: #e74c3c; }
+    .status-text { text-align: center; color: #888; font-size: 13px; margin-top: 12px; }
+    .error-text { text-align: center; color: #cc0000; font-size: 13px; margin-top: 12px; }
+  </style>
+</head>
+<body>
+  <div class="search-box">
+    <input type="text" id="query" placeholder="Zoek zwemlocatie..." />
+    <button id="searchBtn">Zoeken</button>
+  </div>
+  <div class="spinner" id="spinner"></div>
+  <div id="statusText" class="status-text"></div>
+  <ul class="results" id="results"></ul>
+
+  <script type="application/javascript">
+    var homeyInstance = null;
+    var searchHandled = false;
+    var pollInterval = null;
+
+    function initSearch(Homey) {
+      if (homeyInstance) return;
+      homeyInstance = Homey;
+
+      try { Homey.ready(); } catch(e) {}
+
+      var searchBtn = document.getElementById('searchBtn');
+      var queryInput = document.getElementById('query');
+      var spinner = document.getElementById('spinner');
+      var resultsList = document.getElementById('results');
+      var statusText = document.getElementById('statusText');
+
+      Homey.on('searchResults', function(results) {
+        if (searchHandled) return;
+        searchHandled = true;
+        if (pollInterval) { clearInterval(pollInterval); pollInterval = null; }
+        showResults(results);
+      });
+
+      function showResults(results) {
+        spinner.style.display = 'none';
+        searchBtn.disabled = false;
+        statusText.textContent = '';
+        resultsList.innerHTML = '';
+
+        if (results && results.error) {
+          statusText.className = 'error-text';
+          statusText.textContent = 'Fout bij zoeken: ' + results.error;
+          return;
+        }
+
+        if (!results || !Array.isArray(results) || results.length === 0) {
+          statusText.className = 'status-text';
+          statusText.textContent = 'Geen locaties gevonden';
+          return;
+        }
+
+        results.forEach(function(loc) {
+          var li = document.createElement('li');
+          var qualityClass = loc.quality === 'goed' ? 'quality-good'
+            : (loc.quality === 'waarschuwing' ? 'quality-warn' : 'quality-bad');
+          var tempText = loc.temperature != null ? loc.temperature + '°C' : '-';
+
+          li.innerHTML =
+            '<div class="loc-name">' + escapeHtml(loc.name) + '</div>' +
+            '<div class="loc-info"><span class="loc-temp">' + tempText + '</span>' +
+            ' <span class="' + qualityClass + '">' + escapeHtml(loc.quality || '') + '</span></div>';
+          li.addEventListener('click', function() {
+            selectLocation(loc);
+          });
+          resultsList.appendChild(li);
+        });
+      }
+
+      function doSearch() {
+        var query = queryInput.value.trim();
+        searchHandled = false;
+        spinner.style.display = 'block';
+        searchBtn.disabled = true;
+        resultsList.innerHTML = '';
+        statusText.className = 'status-text';
+        statusText.textContent = 'Zwemlocaties ophalen...';
+
+        Homey.emit('searchLocations', query)
+          .then(function(results) {
+            if (!searchHandled && results && (Array.isArray(results) || results.error)) {
+              searchHandled = true;
+              if (pollInterval) { clearInterval(pollInterval); pollInterval = null; }
+              showResults(results);
+            }
+          })
+          .catch(function() {
+            statusText.textContent = 'Wachten op resultaten...';
+          });
+
+        var pollCount = 0;
+        if (pollInterval) clearInterval(pollInterval);
+        pollInterval = setInterval(function() {
+          if (searchHandled || pollCount > 30) {
+            clearInterval(pollInterval);
+            pollInterval = null;
+            if (!searchHandled) {
+              searchHandled = true;
+              spinner.style.display = 'none';
+              searchBtn.disabled = false;
+              statusText.className = 'error-text';
+              statusText.textContent = 'Timeout. Probeer opnieuw.';
+            }
+            return;
+          }
+          pollCount++;
+          Homey.emit('getSearchResults', null)
+            .then(function(results) {
+              if (results && !searchHandled) {
+                searchHandled = true;
+                clearInterval(pollInterval);
+                pollInterval = null;
+                showResults(results);
+              }
+            })
+            .catch(function() {});
+        }, 2000);
+      }
+
+      function selectLocation(loc) {
+        spinner.style.display = 'block';
+        searchBtn.disabled = true;
+        resultsList.innerHTML = '';
+        statusText.className = 'status-text';
+        statusText.textContent = 'Locatie selecteren...';
+
+        Homey.emit('selectLocation', loc.urlName).catch(function() {});
+
+        setTimeout(function() {
+          try { Homey.showView('confirm'); } catch(e) {}
+        }, 500);
+      }
+
+      function escapeHtml(text) {
+        if (!text) return '';
+        var div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+      }
+
+      searchBtn.addEventListener('click', doSearch);
+      queryInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') doSearch();
+      });
+
+      doSearch();
+    }
+
+    function onHomeyReady(Homey) {
+      initSearch(Homey);
+    }
+
+    try {
+      if (typeof Homey !== 'undefined') initSearch(Homey);
+    } catch(e) {}
+
+    document.addEventListener('DOMContentLoaded', function() {
+      try {
+        if (typeof Homey !== 'undefined' && !homeyInstance) initSearch(Homey);
+      } catch(e) {}
+    });
+  </script>
+</body>
+</html>

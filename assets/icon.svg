@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 960">
+  <!-- Waves -->
+  <path d="M100 560 Q200 490 300 540 T500 530 T700 540 T900 510" fill="none" stroke="#000000" stroke-width="38" stroke-linecap="round"/>
+  <path d="M100 650 Q200 580 300 630 T500 620 T700 630 T900 600" fill="none" stroke="#000000" stroke-width="38" stroke-linecap="round" opacity="0.4"/>
+
+  <!-- Thermometer body -->
+  <rect x="410" y="120" width="70" height="330" rx="35" fill="#000000"/>
+  <circle cx="445" cy="480" r="70" fill="#000000"/>
+
+  <!-- Thermometer inner white -->
+  <rect x="422" y="132" width="46" height="310" rx="23" fill="none" stroke="#000000" stroke-width="0"/>
+  <rect x="422" y="132" width="46" height="310" rx="23" fill="#ffffff"/>
+  <circle cx="445" cy="480" r="55" fill="#ffffff"/>
+
+  <!-- Mercury level -->
+  <rect x="428" y="250" width="34" height="195" rx="8" fill="#000000"/>
+  <circle cx="445" cy="480" r="42" fill="#000000"/>
+
+  <!-- Temperature marks -->
+  <rect x="484" y="165" width="30" height="5" rx="2" fill="#000000" opacity="0.5"/>
+  <rect x="484" y="225" width="30" height="5" rx="2" fill="#000000" opacity="0.5"/>
+  <rect x="484" y="285" width="30" height="5" rx="2" fill="#000000" opacity="0.5"/>
+  <rect x="484" y="345" width="30" height="5" rx="2" fill="#000000" opacity="0.5"/>
+</svg>

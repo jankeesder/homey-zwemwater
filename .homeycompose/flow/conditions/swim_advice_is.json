@@ -1,0 +1,19 @@
+{
+  "id": "swim_advice_is",
+  "title": { "en": "Swim advice is [[advice]]", "nl": "Zwemadvies is [[advice]]" },
+  "titleFormatted": { "en": "Swim advice !{{is|is not}} [[advice]]", "nl": "Zwemadvies !{{is|is niet}} [[advice]]" },
+  "args": [
+    { "type": "device", "name": "device", "filter": "driver_id=swimming-location" },
+    {
+      "name": "advice",
+      "type": "dropdown",
+      "title": { "en": "Advice", "nl": "Advies" },
+      "values": [
+        { "id": "good", "label": { "en": "Good", "nl": "Goed" } },
+        { "id": "warning", "label": { "en": "Warning", "nl": "Waarschuwing" } },
+        { "id": "negative", "label": { "en": "Negative", "nl": "Negatief" } },
+        { "id": "prohibited", "label": { "en": "Prohibited", "nl": "Verbod" } }
+      ]
+    }
+  ]
+}

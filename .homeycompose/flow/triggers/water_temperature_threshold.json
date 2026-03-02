@@ -1,0 +1,13 @@
+{
+  "id": "water_temperature_threshold",
+  "title": { "en": "Water temperature changed", "nl": "Watertemperatuur is veranderd" },
+  "titleFormatted": { "en": "Water temperature crosses [[threshold]] °C", "nl": "Watertemperatuur passeert [[threshold]] °C" },
+  "args": [
+    { "type": "device", "name": "device", "filter": "driver_id=swimming-location" },
+    { "name": "threshold", "type": "number", "title": { "en": "Threshold (\u00b0C)", "nl": "Drempel (\u00b0C)" }, "min": 0, "max": 40, "step": 0.5 }
+  ],
+  "tokens": [
+    { "name": "temperature", "type": "number", "title": { "en": "Temperature", "nl": "Temperatuur" } },
+    { "name": "location_name", "type": "string", "title": { "en": "Location", "nl": "Locatie" } }
+  ]
+}

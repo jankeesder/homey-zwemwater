@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 960">
+  <!-- Waves -->
+  <path d="M120 580 Q240 510 360 560 T600 550 T840 570" fill="none" stroke="#000000" stroke-width="36" stroke-linecap="round"/>
+  <path d="M120 660 Q240 590 360 640 T600 630 T840 650" fill="none" stroke="#000000" stroke-width="36" stroke-linecap="round" opacity="0.35"/>
+
+  <!-- Thermometer body -->
+  <rect x="420" y="140" width="64" height="300" rx="32" fill="#000000"/>
+  <circle cx="452" cy="468" r="64" fill="#000000"/>
+
+  <!-- Thermometer inner -->
+  <rect x="432" y="152" width="40" height="278" rx="20" fill="#ffffff"/>
+  <circle cx="452" cy="468" r="50" fill="#ffffff"/>
+
+  <!-- Mercury -->
+  <rect x="437" y="260" width="30" height="175" rx="6" fill="#000000"/>
+  <circle cx="452" cy="468" r="38" fill="#000000"/>
+
+  <!-- Marks -->
+  <rect x="488" y="175" width="26" height="4" rx="2" fill="#000000" opacity="0.5"/>
+  <rect x="488" y="230" width="26" height="4" rx="2" fill="#000000" opacity="0.5"/>
+  <rect x="488" y="285" width="26" height="4" rx="2" fill="#000000" opacity="0.5"/>
+  <rect x="488" y="340" width="26" height="4" rx="2" fill="#000000" opacity="0.5"/>
+</svg>

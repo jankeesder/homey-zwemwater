@@ -1,0 +1,13 @@
+{
+  "id": "swim_advice_changed",
+  "title": { "en": "Swim advice has changed", "nl": "Zwemadvies is veranderd" },
+  "hint": { "en": "When the swim advice changes", "nl": "Wanneer het zwemadvies verandert" },
+  "args": [
+    { "type": "device", "name": "device", "filter": "driver_id=swimming-location" }
+  ],
+  "tokens": [
+    { "name": "advice", "type": "string", "title": { "en": "New advice", "nl": "Nieuw advies" } },
+    { "name": "previous_advice", "type": "string", "title": { "en": "Previous advice", "nl": "Vorig advies" } },
+    { "name": "location_name", "type": "string", "title": { "en": "Location", "nl": "Locatie" } }
+  ]
+}

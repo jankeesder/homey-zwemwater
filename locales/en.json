@@ -1,0 +1,8 @@
+{
+  "swim_advice": {
+    "good": "Good",
+    "warning": "Warning",
+    "negative": "Negative advice",
+    "prohibited": "Swimming prohibited"
+  }
+}

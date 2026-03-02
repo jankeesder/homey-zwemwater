@@ -1,0 +1,17 @@
+{
+  "id": "water_temperature_compare",
+  "title": { "en": "Water temperature is [[comparison]] [[temperature]] °C", "nl": "Watertemperatuur is [[comparison]] [[temperature]] °C" },
+  "titleFormatted": { "en": "Water temperature !{{is|is not}} [[comparison]] [[temperature]] °C", "nl": "Watertemperatuur !{{is|is niet}} [[comparison]] [[temperature]] °C" },
+  "args": [
+    { "type": "device", "name": "device", "filter": "driver_id=swimming-location" },
+    {
+      "name": "comparison",
+      "type": "dropdown",
+      "values": [
+        { "id": "gt", "label": { "en": "higher than", "nl": "hoger dan" } },
+        { "id": "lt", "label": { "en": "lower than", "nl": "lager dan" } }
+      ]
+    },
+    { "name": "temperature", "type": "number", "min": 0, "max": 40, "step": 0.5 }
+  ]
+}

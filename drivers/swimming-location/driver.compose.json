@@ -1,0 +1,45 @@
+{
+  "name": { "en": "Swimming Location", "nl": "Zwemlocatie" },
+  "class": "other",
+  "capabilities": [
+    "measure_temperature.water",
+    "swim_advice",
+    "measurement_time"
+  ],
+  "capabilitiesOptions": {
+    "measure_temperature.water": {
+      "title": { "en": "Water Temperature", "nl": "Watertemperatuur" }
+    }
+  },
+  "pair": [
+    { "id": "search" },
+    { "id": "confirm", "navigation": { "prev": "search", "next": "list_devices" } },
+    { "id": "list_devices", "template": "list_devices", "navigation": { "next": "add_devices" } },
+    { "id": "add_devices", "template": "add_devices" }
+  ],
+  "settings": [
+    {
+      "type": "group",
+      "label": { "en": "Refresh", "nl": "Verversing" },
+      "children": [
+        {
+          "id": "refresh_interval",
+          "type": "dropdown",
+          "label": { "en": "Refresh interval", "nl": "Verversingsinterval" },
+          "value": "21600",
+          "values": [
+            { "id": "3600", "label": { "en": "Every hour", "nl": "Elk uur" } },
+            { "id": "21600", "label": { "en": "Every 6 hours", "nl": "Elke 6 uur" } },
+            { "id": "43200", "label": { "en": "Every 12 hours", "nl": "Elke 12 uur" } },
+            { "id": "86400", "label": { "en": "Once a day", "nl": "Eens per dag" } }
+          ]
+        }
+      ]
+    }
+  ],
+  "images": {
+    "small": "/drivers/swimming-location/assets/images/small.png",
+    "large": "/drivers/swimming-location/assets/images/large.png",
+    "xlarge": "/drivers/swimming-location/assets/images/xlarge.png"
+  }
+}

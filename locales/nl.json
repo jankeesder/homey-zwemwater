@@ -1,0 +1,8 @@
+{
+  "swim_advice": {
+    "good": "Goed",
+    "warning": "Waarschuwing",
+    "negative": "Negatief zwemadvies",
+    "prohibited": "Zwemverbod"
+  }
+}

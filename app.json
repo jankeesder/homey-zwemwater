@@ -1,0 +1,417 @@
+{
+  "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
+  "id": "nl.zwemwater",
+  "version": "1.0.1",
+  "compatibility": ">=12.1.2",
+  "sdk": 3,
+  "platforms": [
+    "local"
+  ],
+  "name": {
+    "en": "Swimming Water",
+    "nl": "Zwemwater"
+  },
+  "description": {
+    "en": "Know before you go — live water temperature and swim safety",
+    "nl": "Altijd weten of je veilig en lekker kunt zwemmen"
+  },
+  "category": "climate",
+  "tags": {
+    "en": [
+      "swimming",
+      "water temperature",
+      "swim advice",
+      "water quality",
+      "beach"
+    ],
+    "nl": [
+      "zwemmen",
+      "watertemperatuur",
+      "zwemadvies",
+      "waterkwaliteit",
+      "strand"
+    ]
+  },
+  "permissions": [
+    "homey:manager:geolocation"
+  ],
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  },
+  "author": {
+    "name": "Jan-kees de Rijke"
+  },
+  "source": "https://github.com/jankeesder/homey-zwemwater",
+  "brandColor": "#0077B6",
+  "flow": {
+    "triggers": [
+      {
+        "id": "swim_advice_changed",
+        "title": {
+          "en": "Swim advice has changed",
+          "nl": "Zwemadvies is veranderd"
+        },
+        "hint": {
+          "en": "When the swim advice changes",
+          "nl": "Wanneer het zwemadvies verandert"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=swimming-location"
+          }
+        ],
+        "tokens": [
+          {
+            "name": "advice",
+            "type": "string",
+            "title": {
+              "en": "New advice",
+              "nl": "Nieuw advies"
+            }
+          },
+          {
+            "name": "previous_advice",
+            "type": "string",
+            "title": {
+              "en": "Previous advice",
+              "nl": "Vorig advies"
+            }
+          },
+          {
+            "name": "location_name",
+            "type": "string",
+            "title": {
+              "en": "Location",
+              "nl": "Locatie"
+            }
+          }
+        ]
+      },
+      {
+        "id": "water_temperature_threshold",
+        "title": {
+          "en": "Water temperature changed",
+          "nl": "Watertemperatuur is veranderd"
+        },
+        "titleFormatted": {
+          "en": "Water temperature crosses [[threshold]] °C",
+          "nl": "Watertemperatuur passeert [[threshold]] °C"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=swimming-location"
+          },
+          {
+            "name": "threshold",
+            "type": "number",
+            "title": {
+              "en": "Threshold (°C)",
+              "nl": "Drempel (°C)"
+            },
+            "min": 0,
+            "max": 40,
+            "step": 0.5
+          }
+        ],
+        "tokens": [
+          {
+            "name": "temperature",
+            "type": "number",
+            "title": {
+              "en": "Temperature",
+              "nl": "Temperatuur"
+            }
+          },
+          {
+            "name": "location_name",
+            "type": "string",
+            "title": {
+              "en": "Location",
+              "nl": "Locatie"
+            }
+          }
+        ]
+      }
+    ],
+    "conditions": [
+      {
+        "id": "swim_advice_is",
+        "title": {
+          "en": "Swim advice is [[advice]]",
+          "nl": "Zwemadvies is [[advice]]"
+        },
+        "titleFormatted": {
+          "en": "Swim advice !{{is|is not}} [[advice]]",
+          "nl": "Zwemadvies !{{is|is niet}} [[advice]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=swimming-location"
+          },
+          {
+            "name": "advice",
+            "type": "dropdown",
+            "title": {
+              "en": "Advice",
+              "nl": "Advies"
+            },
+            "values": [
+              {
+                "id": "good",
+                "label": {
+                  "en": "Good",
+                  "nl": "Goed"
+                }
+              },
+              {
+                "id": "warning",
+                "label": {
+                  "en": "Warning",
+                  "nl": "Waarschuwing"
+                }
+              },
+              {
+                "id": "negative",
+                "label": {
+                  "en": "Negative",
+                  "nl": "Negatief"
+                }
+              },
+              {
+                "id": "prohibited",
+                "label": {
+                  "en": "Prohibited",
+                  "nl": "Verbod"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "water_temperature_compare",
+        "title": {
+          "en": "Water temperature is [[comparison]] [[temperature]] °C",
+          "nl": "Watertemperatuur is [[comparison]] [[temperature]] °C"
+        },
+        "titleFormatted": {
+          "en": "Water temperature !{{is|is not}} [[comparison]] [[temperature]] °C",
+          "nl": "Watertemperatuur !{{is|is niet}} [[comparison]] [[temperature]] °C"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=swimming-location"
+          },
+          {
+            "name": "comparison",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "gt",
+                "label": {
+                  "en": "higher than",
+                  "nl": "hoger dan"
+                }
+              },
+              {
+                "id": "lt",
+                "label": {
+                  "en": "lower than",
+                  "nl": "lager dan"
+                }
+              }
+            ]
+          },
+          {
+            "name": "temperature",
+            "type": "number",
+            "min": 0,
+            "max": 40,
+            "step": 0.5
+          }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "refresh_data",
+        "title": {
+          "en": "Refresh data",
+          "nl": "Ververs data"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=swimming-location"
+          }
+        ]
+      }
+    ]
+  },
+  "drivers": [
+    {
+      "name": {
+        "en": "Swimming Location",
+        "nl": "Zwemlocatie"
+      },
+      "class": "other",
+      "capabilities": [
+        "measure_temperature.water",
+        "swim_advice",
+        "measurement_time"
+      ],
+      "capabilitiesOptions": {
+        "measure_temperature.water": {
+          "title": {
+            "en": "Water Temperature",
+            "nl": "Watertemperatuur"
+          }
+        }
+      },
+      "pair": [
+        {
+          "id": "search"
+        },
+        {
+          "id": "confirm",
+          "navigation": {
+            "prev": "search",
+            "next": "list_devices"
+          }
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Refresh",
+            "nl": "Verversing"
+          },
+          "children": [
+            {
+              "id": "refresh_interval",
+              "type": "dropdown",
+              "label": {
+                "en": "Refresh interval",
+                "nl": "Verversingsinterval"
+              },
+              "value": "21600",
+              "values": [
+                {
+                  "id": "3600",
+                  "label": {
+                    "en": "Every hour",
+                    "nl": "Elk uur"
+                  }
+                },
+                {
+                  "id": "21600",
+                  "label": {
+                    "en": "Every 6 hours",
+                    "nl": "Elke 6 uur"
+                  }
+                },
+                {
+                  "id": "43200",
+                  "label": {
+                    "en": "Every 12 hours",
+                    "nl": "Elke 12 uur"
+                  }
+                },
+                {
+                  "id": "86400",
+                  "label": {
+                    "en": "Once a day",
+                    "nl": "Eens per dag"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "images": {
+        "small": "/drivers/swimming-location/assets/images/small.png",
+        "large": "/drivers/swimming-location/assets/images/large.png",
+        "xlarge": "/drivers/swimming-location/assets/images/xlarge.png"
+      },
+      "id": "swimming-location"
+    }
+  ],
+  "capabilities": {
+    "measurement_time": {
+      "type": "string",
+      "title": {
+        "en": "Measurement time",
+        "nl": "Meettijd"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/clock.svg"
+    },
+    "swim_advice": {
+      "type": "enum",
+      "title": {
+        "en": "Swim Advice",
+        "nl": "Zwemadvies"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/swim-advice.svg",
+      "values": [
+        {
+          "id": "good",
+          "title": {
+            "en": "Good",
+            "nl": "Goed"
+          }
+        },
+        {
+          "id": "warning",
+          "title": {
+            "en": "Warning",
+            "nl": "Waarschuwing"
+          }
+        },
+        {
+          "id": "negative",
+          "title": {
+            "en": "Negative advice",
+            "nl": "Negatief zwemadvies"
+          }
+        },
+        {
+          "id": "prohibited",
+          "title": {
+            "en": "Prohibited",
+            "nl": "Zwemverbod"
+          }
+        }
+      ]
+    }
+  }
+}

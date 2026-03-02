@@ -1,0 +1,8 @@
+{
+  "name": "nl.zwemwater",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "node --test test/*.test.js"
+  }
+}
