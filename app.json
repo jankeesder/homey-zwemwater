@@ -43,7 +43,7 @@
   "author": {
     "name": "Jan-kees de Rijke"
   },
-  "source": "https://github.com/jankeesder/homey-zwemwater",
+  "source": "https://github.com/jankeesder/Homey/tree/main/nl.zwemwater",
   "brandColor": "#0077B6",
   "flow": {
     "triggers": [
